@@ -20,7 +20,6 @@
 ;; use alt-x 'describe char' to figure out what is being shown
 ;; color reference: http://www.raebear.net/computers/emacs-colors/
 
-
 (defvar my-color-def-f        "gainsboro"         "default foreground")
 (defvar my-color-def-b        "grey20"            "default background")
 (defvar my-color-hi           "steel blue"  "highlight background")
@@ -36,8 +35,8 @@
 
 (if(>= my-version 21)
     (progn
-      (set-face-attribute 'cursor nil :background "gainsboro" :foreground "red" :weight 'bold)
-      (set-face-foreground 'cursor                  my-color-def-f)
+      ;; (set-face-attribute 'cursor nil :background my-color-def-b :foreground my-color-def-f :weight 'bold)
+      (set-face-attribute 'cursor nil :background my-color-def-b :foreground my-color-def-f)
       (set-face-background 'cursor                  my-color-def-f)
       (set-face-background 'fringe                  my-color-def-b)
       (set-face-foreground 'isearch                 my-color-def-b)
@@ -55,24 +54,47 @@
     (add-to-list 'default-frame-alist `(background-color . my-color-def-b))
     (add-to-list 'default-frame-alist `(cursor-color . my-color-def-f))))
 
-(set-face-foreground 'default                          my-color-def-f)
-(set-face-background 'default                          my-color-def-b)
-(set-face-foreground 'font-lock-builtin-face           my-color-kwc)
-(set-face-foreground 'font-lock-comment-face           my-color-comm)
-(set-face-foreground 'font-lock-comment-delimiter-face my-color-comm)
-(set-face-foreground 'font-lock-constant-face          my-color-kwc)
-(set-face-foreground 'font-lock-doc-face               my-color-comm)
-(set-face-foreground 'font-lock-function-name-face     my-color-func)
-(set-face-foreground 'font-lock-keyword-face           my-color-kwc)
-(set-face-foreground 'font-lock-negation-char-face     my-color-kwc)
-(set-face-foreground 'font-lock-preprocessor-face      my-color-str)
-(set-face-foreground 'font-lock-regexp-grouping-backslash my-color-comm)
-(set-face-foreground 'font-lock-regexp-grouping-construct my-color-kwc)
-(set-face-foreground 'font-lock-string-face            my-color-str)
-(set-face-foreground 'font-lock-type-face              my-color-str)
-(set-face-foreground 'font-lock-variable-name-face     my-color-def-f)
-(set-face-foreground 'font-lock-warning-face           my-color-warn)
-(set-face-foreground 'highlight                        my-color-def-b)
+(set-face-attribute 'default nil
+                    :background my-color-def-b
+                    :foreground my-color-def-f)
+(set-face-attribute 'font-lock-builtin-face nil
+                    :foreground my-color-kwc)
+(set-face-attribute 'font-lock-comment-face nil
+                    :foreground my-color-comm
+                    :weight 'bold
+                    )
+(set-face-attribute 'font-lock-comment-delimiter-face nil
+                    :foreground my-color-comm)
+(set-face-attribute 'font-lock-constant-face nil
+                    :foreground my-color-kwc)
+(set-face-attribute 'font-lock-doc-face nil
+                    :foreground my-color-comm)
+(set-face-attribute 'font-lock-function-name-face nil
+                    :foreground my-color-func
+                    :weight 'bold)
+(set-face-attribute 'font-lock-keyword-face nil
+                    :foreground my-color-kwc
+                    :weight 'bold)
+(set-face-attribute 'font-lock-negation-char-face nil
+                    :foreground my-color-kwc)
+(set-face-attribute 'font-lock-preprocessor-face nil
+                    :foreground my-color-kwc)
+(set-face-attribute 'font-lock-regexp-grouping-backslash nil
+                    :foreground my-color-comm)
+(set-face-attribute 'font-lock-regexp-grouping-construct nil
+                    :foreground my-color-kwc)
+(set-face-attribute 'font-lock-string-face nil
+                    :foreground my-color-str)
+(set-face-attribute 'font-lock-type-face nil
+                    :foreground my-color-str
+                    :weight 'bold)
+(set-face-attribute 'font-lock-variable-name-face nil
+                    :foreground my-color-def-f)
+(set-face-attribute 'font-lock-warning-face nil
+                    :foreground my-color-warn)
+(set-face-attribute 'highlight  nil
+                    :foreground my-color-def-b)
+
 (set-face-background 'highlight                        my-color-hi)
 (set-face-foreground 'minibuffer-prompt                my-color-def-f)
 (set-face-foreground 'region                           my-color-def-b)
@@ -172,22 +194,22 @@
       (format default-font-format font-maker font-family font-width
               font-style font-height font-pixels font-spacing))
 
-(defvar bold-font-format "-%s-%s-bold-r-%s-%s-%s-%s-*-*-%s-*-iso8859-1")
-(defvar bold-font
-      (format bold-font-format font-maker font-family font-width
-              font-style font-height font-pixels font-spacing))
+;; (defvar bold-font-format "-%s-%s-bold-r-%s-%s-%s-%s-*-*-%s-*-iso8859-1")
+;; (defvar bold-font
+;;       (format bold-font-format font-maker font-family font-width
+;;               font-style font-height font-pixels font-spacing))
 
-(defvar bold-italic-font-format "-%s-%s-bold-i-%s-%s-%s-%s-*-*-%s-*-iso8859-1")
-(defvar bold-italic-font
-     (format bold-italic-font-format font-maker font-family font-width
-             font-style font-height font-pixels font-spacing))
+;; (defvar bold-italic-font-format "-%s-%s-bold-i-%s-%s-%s-%s-*-*-%s-*-iso8859-1")
+;; (defvar bold-italic-font
+;;      (format bold-italic-font-format font-maker font-family font-width
+;;              font-style font-height font-pixels font-spacing))
 
 ; set the fonts
 (add-to-list 'default-frame-alist `(font . ,default-font))
-(set-face-font 'font-lock-comment-face bold-italic-font)
-(set-face-font 'font-lock-type-face bold-font)
-(set-face-font 'font-lock-function-name-face bold-font)
-(set-face-font 'font-lock-keyword-face bold-font)
+;; (set-face-font 'font-lock-comment-face bold-italic-font)
+;; (set-face-font 'font-lock-type-face bold-font)
+;; (set-face-font 'font-lock-function-name-face bold-font)
+;; (set-face-font 'font-lock-keyword-face bold-font)
 
 ; unix font
 ;;"-adobe-courier-medium-r-normal--*-180-*-*-m-*-iso8859-1"
