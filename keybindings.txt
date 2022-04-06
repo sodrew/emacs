@@ -1,0 +1,7 @@
+xmodmap -pke > .Xmodmap
+xev -event keyboard
+xmodmap .Xmodmap
+xkbcomp $DISPLAY $HOME/.xkbmap
+
+start > start application > add
+xkbcomp /home/drew/.xkbmap ":0"

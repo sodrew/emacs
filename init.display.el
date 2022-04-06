@@ -160,7 +160,7 @@
               (setq font-height "16")
               )
           (progn
-            (setq font-height "20")
+            (setq font-height "40")
             )
           )
         )
