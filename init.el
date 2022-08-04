@@ -34,14 +34,23 @@
   '(better-defaults                 ;; Set up some better Emacs defaults
     elpy                            ;; Emacs Lisp Python Environment
     flycheck                        ;; On the fly syntax checking
+    ;; vue-mode
+    ;; python-django
+    web-mode
     magit                           ;; Git integration
-    disable-mouse                   ;; disable mouse inputs
-    cypher-mode                     ;; for neo4j graph ql
+    ;; disable-mouse                   ;; disable mouse inputs
+    ;; cypher-mode                     ;; for neo4j graph ql
     php-mode
+    yaml-mode
     ;; material-theme                  ;; Theme
     ;; zenburn-theme
     )
   )
+
+
+;; Turn off mouse inputs
+;; (when (require 'disable-mouse nil t)
+;;   (global-disable-mouse-mode))
 
 ;; pip install pylint
 
@@ -80,6 +89,7 @@
  initial-scratch-message nil   ;; kill the initial scratch message
  frame-title-format "%b"       ;; file name in window title
  icon-title-format "!%b"       ;; file name in window title  when iconified
+ large-file-warning-threshold nil ;; don't prompt for large files
  initial-major-mode 'text-mode ;; sets the major mode to text
  insert-default-directory nil  ;; hides the default dir on fopen
  next-line-add-newlines nil    ;; no newlines on down key
@@ -104,6 +114,20 @@
 ;; turn off python indent guess warnings
 (setq python-indent-guess-indent-offset t)
 (setq python-indent-guess-indent-offset-verbose nil)
+
+;; so we can edit python templates
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(setq web-mode-engines-alist '(("django"    . "\\.html\\'")))
+
+;; Enable elpy
+(elpy-enable)
+
+;; Enable Flycheck
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; ===================================================================
 ;; Key Bindings
@@ -148,7 +172,6 @@
 ;; ====================================
 ;; Development Setup
 ;; ====================================
-(cd "/home/drew/desktop/myapp")
 
 ;; Enable elpy
 (elpy-enable)
@@ -161,26 +184,5 @@
 ;; Turn off mouse inputs
 ;; (when (require 'disable-mouse nil t)
 ;;   (global-disable-mouse-mode))
+(cd "/home/drew/desktop/myapp/userapp")
 
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 158 :width normal))))
-;;  '(font-lock-comment-face ((t (:background "gainsboro" :foreground "red" :weight bold)))))
-;; )
-
-;; ;; User-Defined init.el ends here
-;; (custom-set-variables
-;;  ;; custom-set-variables was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(package-selected-packages (quote (material-theme better-defaults))))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  )
