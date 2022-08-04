@@ -170,7 +170,8 @@
         (add-to-list 'default-frame-alist '(height . 30))
         (add-to-list 'default-frame-alist '(width . 80))
 
-        (if (<= (x-display-pixel-width) 1280)
+        (if (or (not (boundp 'x-display-pixel-width))
+                (<= (x-display-pixel-width) 1280))
             (progn
               (setq font-height "16")
               )
@@ -180,7 +181,7 @@
           )
         )
     )
-)
+  )
 
 (defvar default-font-format "-%s-%s-normal-r-%s-%s-%s-%s-*-*-%s-*-iso10646-1")
 (defvar default-font
