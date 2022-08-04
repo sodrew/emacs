@@ -1,3 +1,36 @@
+;; (defun copy-selected-text (start end)
+;;   (interactive "r")
+;;     (if (use-region-p)
+;;         (let ((text (buffer-substring-no-properties start end)))
+;;             (shell-command (concat "echo '" text "' | clip.exe")))))
+;; ; wsl-copy
+;; (defun wsl-copy (start end)
+;;   (interactive "r")
+;;   (shell-command-on-region start end "clip.exe")
+;;   (deactivate-mark))
+
+;; ; wsl-paste
+;; (defun wsl-paste ()
+;;   (interactive)
+;;   (let ((clipboard
+;;      (shell-command-to-string "powershell.exe -command 'Get-Clipboard' 2> /dev/null")))
+;;     (setq clipboard (replace-regexp-in-string "\r" "" clipboard)) ; Remove Windows ^M characters
+;;     (setq clipboard (substring clipboard 0 -1)) ; Remove newline added by Powershell
+;;     (insert clipboard)))
+
+;; (setq select-enable-clipboard nil)
+
+                                        ; Bind wsl-copy to C-c C-v
+;; (global-set-key
+;;  (kbd "<C-Insert>")
+;;  'copy-selected-text)
+
+; Bind wsl-paste to C-c C-v
+;; (global-set-key
+;;  (kbd "<S-Insert>")
+;;  'wsl-paste)
+
+
 ;; turn off truncate lines in grep mode
 (add-hook 'grep-mode-hook '(lambda () (toggle-truncate-lines nil)))
 

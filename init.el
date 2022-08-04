@@ -1,3 +1,6 @@
+
+;; https://emacsredux.com/blog/2021/12/19/using-emacs-on-windows-11-with-wsl2/
+
 ;; .emacs.d/init.el
 ;; (toggle-debug-on-quit)
 
@@ -34,6 +37,7 @@
     magit                           ;; Git integration
     disable-mouse                   ;; disable mouse inputs
     cypher-mode                     ;; for neo4j graph ql
+    php-mode
     ;; material-theme                  ;; Theme
     ;; zenburn-theme
     )
@@ -144,7 +148,7 @@
 ;; ====================================
 ;; Development Setup
 ;; ====================================
-(cd "/home/drew/desktop/dev/config/studyapp/management/commands")
+(cd "/home/drew/desktop/myapp")
 
 ;; Enable elpy
 (elpy-enable)

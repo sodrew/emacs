@@ -1,19 +1,6 @@
 ;-------------------------[ Version Check ]-------------------------;
 (defvar my-version "the current version")
-(setq my-version 0); initialize the version flag
-(if(string-match "GNU Emacs 26" (version))
-    (setq my-version 26)
-  (if(string-match "GNU Emacs 24" (version))
-      (setq my-version 24)
-    (if(string-match "GNU Emacs 23" (version))
-  (setq my-version 23)
-      (if(string-match "GNU Emacs 22" (version))
-    (setq my-version 22)
-  (if(string-match "GNU Emacs 21" (version))
-      (setq my-version 21)
-    (if(string-match "GNU Emacs 20" (version))
-        (setq my-version 20)))))))
-
+(setq my-version (string-to-number (nth 2 (split-string (version) " ")))); get emacs version to ignore old vars
 
 ;---------------------------[ Display Settings ]---------------------------;
 
@@ -125,10 +112,10 @@
       (setq font-spacing "c")
       (setq font-pixels "*")
       ; fix initial position
-      (add-to-list 'default-frame-alist '(top . 40))
-      (add-to-list 'default-frame-alist '(left . 80))
+      ;; (add-to-list 'default-frame-alist '(top . 0))
+      ;; (add-to-list 'default-frame-alist '(left . 80))
       ; fix window size
-      (add-to-list 'default-frame-alist '(height . 36))
+      (add-to-list 'default-frame-alist '(height . 32))
       (add-to-list 'default-frame-alist '(width . 80))
 
       (if (>= (x-display-pixel-width) 3200)
@@ -141,7 +128,7 @@
               (setq font-height "24")
               )
           (progn
-            (setq font-height "16")
+            (setq font-height "14")
             )
           )
         )
@@ -149,18 +136,24 @@
   (if (memq window-system '(x))
       (progn
         (setq font-maker "*")
-        (setq font-family "Ubuntu Mono")
+        (setq font-family "Nimbus Mono PS")
         (setq font-width "normal")
         (setq font-style "*")
         (setq font-spacing "*")
         (setq font-pixels "*")
+        ;; fix initial position
+        (add-to-list 'default-frame-alist '(top . 50))
+        (add-to-list 'default-frame-alist '(left . 720))
+        ;; fix window size
+        (add-to-list 'default-frame-alist '(height . 30))
+        (add-to-list 'default-frame-alist '(width . 80))
 
         (if (<= (x-display-pixel-width) 1280)
             (progn
               (setq font-height "16")
               )
           (progn
-            (setq font-height "20")
+            (setq font-height "24")
             )
           )
         )
