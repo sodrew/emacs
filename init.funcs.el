@@ -32,7 +32,7 @@
 
 
 ;; turn off truncate lines in grep mode
-(add-hook 'grep-mode-hook '(lambda () (toggle-truncate-lines nil)))
+(add-hook 'grep-mode-hook #'(lambda () (toggle-truncate-lines nil)))
 
 (defun my-rgrep ()
   "Shortcut to rgrep with specific defaults"

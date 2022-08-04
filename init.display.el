@@ -134,10 +134,10 @@
       (setq font-spacing "c")
       (setq font-pixels "*")
       ; fix initial position
-      ;; (add-to-list 'default-frame-alist '(top . 0))
-      ;; (add-to-list 'default-frame-alist '(left . 80))
+      (add-to-list 'default-frame-alist '(top . 20))
+      (add-to-list 'default-frame-alist '(left . 80))
       ; fix window size
-      (add-to-list 'default-frame-alist '(height . 32))
+      (add-to-list 'default-frame-alist '(height . 30))
       (add-to-list 'default-frame-alist '(width . 80))
 
       (if (>= (x-display-pixel-width) 3200)
@@ -150,7 +150,7 @@
               (setq font-height "24")
               )
           (progn
-            (setq font-height "14")
+            (setq font-height "16")
             )
           )
         )

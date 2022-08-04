@@ -105,7 +105,7 @@
 
 ;; make our hooks functional
 (add-hook 'after-save-hook 'my-after-save-hooks)
-(add-hook 'write-file-hooks 'my-write-file-hooks)
+(add-hook 'write-file-functions 'my-write-file-hooks)
 
 ;; load custom display colors
 (setq custom-file "~/.emacs.d/init.display")
@@ -184,5 +184,8 @@
 ;; Turn off mouse inputs
 ;; (when (require 'disable-mouse nil t)
 ;;   (global-disable-mouse-mode))
-(cd "/home/drew/desktop/myapp/userapp")
+(if (memq window-system '(win32 w32))
+    (cd "\\\\wsl.localhost\\Ubuntu\\home\\drew\\desktop"))
+(if (memq window-system '(x))
+    (cd "/home/drew/desktop"))
 
