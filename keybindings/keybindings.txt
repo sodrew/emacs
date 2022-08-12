@@ -1,0 +1,16 @@
+# dump the current keyboard map
+xmodmap -pke > .Xmodmap
+
+# use this to detect keys to map new keys
+xev -event keyboard
+
+# make changes as needed to .Xmodmap
+
+# load the new keys
+xmodmap .Xmodmap
+
+# to generate the compiled version
+xkbcomp $DISPLAY $HOME/.xkbmap
+
+# to add this to startup: go to "start > start application > add" and type in:
+xkbcomp /home/drew/.xkbmap ":0"
