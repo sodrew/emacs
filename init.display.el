@@ -42,45 +42,45 @@
     (add-to-list 'default-frame-alist `(cursor-color . my-color-def-f))))
 
 (set-face-attribute 'default nil
-                    :background my-color-def-b
-                    :foreground my-color-def-f)
+		    :background my-color-def-b
+		    :foreground my-color-def-f)
 (set-face-attribute 'font-lock-builtin-face nil
-                    :foreground my-color-kwc)
+		    :foreground my-color-kwc)
 (set-face-attribute 'font-lock-comment-face nil
-                    :foreground my-color-comm
-                    :weight 'bold
-                    )
+		    :foreground my-color-comm
+		    :weight 'bold
+		    )
 (set-face-attribute 'font-lock-comment-delimiter-face nil
-                    :foreground my-color-comm)
+		    :foreground my-color-comm)
 (set-face-attribute 'font-lock-constant-face nil
-                    :foreground my-color-kwc)
+		    :foreground my-color-kwc)
 (set-face-attribute 'font-lock-doc-face nil
-                    :foreground my-color-comm)
+		    :foreground my-color-comm)
 (set-face-attribute 'font-lock-function-name-face nil
-                    :foreground my-color-func
-                    :weight 'bold)
+		    :foreground my-color-func
+		    :weight 'bold)
 (set-face-attribute 'font-lock-keyword-face nil
-                    :foreground my-color-kwc
-                    :weight 'bold)
+		    :foreground my-color-kwc
+		    :weight 'bold)
 (set-face-attribute 'font-lock-negation-char-face nil
-                    :foreground my-color-kwc)
+		    :foreground my-color-kwc)
 (set-face-attribute 'font-lock-preprocessor-face nil
-                    :foreground my-color-kwc)
+		    :foreground my-color-kwc)
 (set-face-attribute 'font-lock-regexp-grouping-backslash nil
-                    :foreground my-color-comm)
+		    :foreground my-color-comm)
 (set-face-attribute 'font-lock-regexp-grouping-construct nil
-                    :foreground my-color-kwc)
+		    :foreground my-color-kwc)
 (set-face-attribute 'font-lock-string-face nil
-                    :foreground my-color-str)
+		    :foreground my-color-str)
 (set-face-attribute 'font-lock-type-face nil
-                    :foreground my-color-str
-                    :weight 'bold)
+		    :foreground my-color-str
+		    :weight 'bold)
 (set-face-attribute 'font-lock-variable-name-face nil
-                    :foreground my-color-def-f)
+		    :foreground my-color-def-f)
 (set-face-attribute 'font-lock-warning-face nil
-                    :foreground my-color-warn)
+		    :foreground my-color-warn)
 (set-face-attribute 'highlight  nil
-                    :foreground my-color-def-b)
+		    :foreground my-color-def-b)
 
 (set-face-background 'highlight                        my-color-hi)
 (set-face-foreground 'minibuffer-prompt                my-color-def-f)
@@ -141,52 +141,52 @@
       (add-to-list 'default-frame-alist '(width . 80))
 
       (if (>= (x-display-pixel-width) 3200)
-          (progn
-            ;(set-face-attribute 'default nil :height 140)
-            (setq font-height "60")
-            )
-        (if (>= (x-display-pixel-width) 1280)
-            (progn
-              (setq font-height "24")
-              )
-          (progn
-            (setq font-height "16")
-            )
-          )
-        )
+	  (progn
+	    ;(set-face-attribute 'default nil :height 140)
+	    (setq font-height "60")
+	    )
+	(if (>= (x-display-pixel-width) 1280)
+	    (progn
+	      (setq font-height "24")
+	      )
+	  (progn
+	    (setq font-height "16")
+	    )
+	  )
+	)
       )
   (if (memq window-system '(x))
       (progn
-        (setq font-maker "*")
-        (setq font-family "Nimbus Mono PS")
-        (setq font-width "normal")
-        (setq font-style "*")
-        (setq font-spacing "*")
-        (setq font-pixels "*")
-        ;; fix initial position
-        (add-to-list 'default-frame-alist '(top . 50))
-        (add-to-list 'default-frame-alist '(left . 720))
-        ;; fix window size
-        (add-to-list 'default-frame-alist '(height . 30))
-        (add-to-list 'default-frame-alist '(width . 80))
+	(setq font-maker "*")
+	(setq font-family "Nimbus Mono PS")
+	(setq font-width "normal")
+	(setq font-style "*")
+	(setq font-spacing "*")
+	(setq font-pixels "*")
+	;; fix initial position
+	(add-to-list 'default-frame-alist '(top . 100))
+	(add-to-list 'default-frame-alist '(left . 1300))
+	;; fix window size
+	(add-to-list 'default-frame-alist '(height . 30))
+	(add-to-list 'default-frame-alist '(width . 80))
 
-        (if (or (not (boundp 'x-display-pixel-width))
-                (<= (x-display-pixel-width) 1280))
-            (progn
-              (setq font-height "16")
-              )
-          (progn
-            (setq font-height "40")
-            )
-          )
-        )
+	(if (or (not (boundp 'x-display-pixel-width))
+		(<= (x-display-pixel-width) 1280))
+	    (progn
+	      (setq font-height "40")
+	      )
+	  (progn
+	    (setq font-height "40")
+	    )
+	  )
+	)
     )
   )
 
 (defvar default-font-format "-%s-%s-normal-r-%s-%s-%s-%s-*-*-%s-*-iso10646-1")
 (defvar default-font
       (format default-font-format font-maker font-family font-width
-              font-style font-height font-pixels font-spacing))
+	      font-style font-height font-pixels font-spacing))
 
 ;; (defvar bold-font-format "-%s-%s-bold-r-%s-%s-%s-%s-*-*-%s-*-iso8859-1")
 ;; (defvar bold-font
@@ -233,24 +233,24 @@
 ;; long list of minor modes, which is relatively unimportant but takes
 ;; up so much room that anything to the right is obliterated.
 (setq-default mode-line-buffer-identification
-              '(:eval (propertize "%b" 'face 'mode-line-buffer-face)))  ;default ("%12b") which pads twelve chars
+	      '(:eval (propertize "%b" 'face 'mode-line-buffer-face)))  ;default ("%12b") which pads twelve chars
 
 (setq-default mode-line-format
-        (list "-"
-        'mode-line-mule-info
-        'mode-line-modified
-        'mode-line-frame-identification
-        'mode-line-buffer-identification
-        '(isearch-case-fold-search " case-ins")
-        '(line-number-mode " (L%l.")
-        ;; '(-3 . "%p")
-        '(column-number-mode "C%c) ")
-        ;; '(which-function-mode ("" which-function-format " "))
-        'global-mode-string
+	(list "-"
+	'mode-line-mule-info
+	'mode-line-modified
+	'mode-line-frame-identification
+	'mode-line-buffer-identification
+	'(isearch-case-fold-search " case-ins")
+	'(line-number-mode " (L%l.")
+	;; '(-3 . "%p")
+	'(column-number-mode "C%c) ")
+	;; '(which-function-mode ("" which-function-format " "))
+	'global-mode-string
 ;;         "%[("
-        'mode-name
-        ;; 'mode-line-process
-        ;; 'minor-mode-alist
+	'mode-name
+	;; 'mode-line-process
+	;; 'minor-mode-alist
 ;;         "%n"
 ;;         ")%]"
 ))

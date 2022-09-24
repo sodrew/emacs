@@ -1,14 +1,14 @@
-
 ;; https://emacsredux.com/blog/2021/12/19/using-emacs-on-windows-11-with-wsl2/
-
 ;; .emacs.d/init.el
 ;; (toggle-debug-on-quit)
-
 ;; (setq gc-cons-threshold 500000000)
 
 ;; add the path
 (if (memq window-system '(win32 w32))
-  (add-to-list 'exec-path (concat (getenv "HOME") "\\wbin")))
+    (progn
+    (add-to-list 'exec-path "C:/Users/Drew/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0/LocalCache/local-packages/Python38/Scripts")
+    (add-to-list 'exec-path (concat (getenv "HOME") "\\wbin"))))
+
 
 ;; ===================================
 ;; MELPA Package Support
@@ -18,7 +18,7 @@
 
 ;; Adds the Melpa archive to the list of available repositories
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+	     '("melpa" . "http://melpa.org/packages/") t)
 
 ;; Initializes the package infrastructure
 (package-initialize)
@@ -57,8 +57,8 @@
 ;; Scans the list in my-Packages
 ;; If the package listed is not already installed, install it
 (mapc #'(lambda (package)
-          (unless (package-installed-p package)
-            (package-install package)))
+	  (unless (package-installed-p package)
+	    (package-install package)))
       my-packages)
 
 ;; ===================================
@@ -115,6 +115,9 @@
 (setq python-indent-guess-indent-offset t)
 (setq python-indent-guess-indent-offset-verbose nil)
 
+;; use wordpress defaults
+(add-hook 'php-mode-hook 'php-enable-wordpress-coding-style)
+
 ;; so we can edit python templates
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
@@ -145,6 +148,10 @@
 (global-set-key [f1] 'toggle-read-only); toggles the buffer read only
 (global-unset-key [f2])
 (global-set-key [f2] 'isearch-toggle-case-fold); toggles case sensitive search
+(global-unset-key [ctrl y])
+(global-set-key [(ctrl y)] 'yoda-reverse); reverse phrase
+(global-unset-key [ctrl i])
+(global-set-key [(ctrl i)] 'php-swap-quotes); switch single and double quotes
 
 ;; (global-set-key [f5] 'my-run-some-commands)
 
@@ -176,6 +183,15 @@
 ;; Enable elpy
 (elpy-enable)
 
+;; (setq elpy-rpc-python-command "python3")
+
+;; (setq python-shell-interpreter "~/.emacs.d/elpy/rpc-venv/Scripts/python")
+
+;; (with-eval-after-load 'elpy
+;;  (let ((venv-dir "~/.emacs.d/elpy/rpc-venv"))
+;;    (if (file-exists-p venv-dir) (pyvenv-activate venv-dir))))
+
+
 ;; Enable Flycheck
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -185,7 +201,7 @@
 ;; (when (require 'disable-mouse nil t)
 ;;   (global-disable-mouse-mode))
 (if (memq window-system '(win32 w32))
-    (cd "\\\\wsl.localhost\\Ubuntu\\home\\drew\\desktop"))
+    (cd "\\\\wsl.localhost\\Ubuntu\\home\\drew\\desktop\\wp2\\public_html\\wp-content\\plugins\\woocommerce-delivery-routing\\includes"))
 (if (memq window-system '(x))
-    (cd "/home/drew/desktop"))
+    (cd "/home/drew/desktop/server_clone/public_html/wp-content/plugins/digitalbodhi-delivery/includes"))
 
