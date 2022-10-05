@@ -1,3 +1,47 @@
+;; enable exit shift selection to where the selection started or ended
+;; https://emacs.stackexchange.com/questions/30414/how-to-move-the-cursor-to-the-beginning-end-of-a-shift-selected-region-by-a-left
+
+;; (defvar my-old-region-bounds nil)
+
+;; (advice-add 'handle-shift-selection :around
+;;   (lambda (orig-fun)
+;;     (let ((was-active (region-active-p)))
+;;       (funcall orig-fun)
+;;       (when (and was-active (not (region-active-p)))
+;; 	(setq-local my-old-region-bounds
+;; 		    (cons (point-marker) (mark-marker)))
+;; 	(add-hook 'post-command-hook #'my-move-to-old-region-bound)))))
+
+;; (defun my-move-to-old-region-bound ()
+;;   (remove-hook 'post-command-hook #'my-move-to-old-region-bound)
+;;   (let ((bounds my-old-region-bounds))
+;;     (kill-local-variable 'my-old-region-bounds)
+;;     (when bounds
+;;       (when (funcall (cond
+;; 		      ((> (point) (car bounds)) #'<)
+;; 		      ((= (point) (car bounds)) #'=)
+;; 		      (t #'>))
+;; 		     (point) (cdr bounds))
+;; 	  ;; We moved towards the other (old)boundary.
+;; 	(goto-char (cdr bounds))))))
+
+
+(defun clean-exit ()
+  "Exit Emacs cleanly.
+If there are unsaved buffer, pop up a list for them to be saved
+before existing. Replaces ‘save-buffers-kill-terminal’."
+  (interactive)
+  (if (frame-parameter nil 'client)
+      (server-save-buffers-kill-terminal arg)
+    (if-let ((buf-list (seq-filter (lambda (buf)
+				     (and (buffer-modified-p buf)
+					  (buffer-file-name buf)))
+				   (buffer-list))))
+	(progn
+	  (pop-to-buffer (list-buffers-noselect t buf-list))
+	  (message "s to save, C-k to kill, x to execute"))
+      (save-buffers-kill-emacs))))
+
 ;; (defun copy-selected-text (start end)
 ;;   (interactive "r")
 ;;     (if (use-region-p)
@@ -184,8 +228,7 @@
 (defun my-write-file-hooks ()
   "My write-file-hooks.
     (has to always return nil, since it is added to write-file-hooks)"
-  (tabify-buffer)
-  ;; (untabify-buffer)
+  (if (eq major-mode 'php-mode) (tabify-buffer) (untabify-buffer))
   (prune-spaces)
 ;  (dosify-buffer)
 ;  (unixify-buffer)

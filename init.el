@@ -18,7 +18,7 @@
 
 ;; Adds the Melpa archive to the list of available repositories
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
 
 ;; Initializes the package infrastructure
 (package-initialize)
@@ -31,7 +31,8 @@
 ;;
 ;; my-packages contains a list of package names
 (defvar my-packages
-  '(better-defaults                 ;; Set up some better Emacs defaults
+  '(
+    better-defaults                 ;; Set up some better Emacs defaults
     elpy                            ;; Emacs Lisp Python Environment
     flycheck                        ;; On the fly syntax checking
     ;; vue-mode
@@ -42,8 +43,6 @@
     ;; cypher-mode                     ;; for neo4j graph ql
     php-mode
     yaml-mode
-    ;; material-theme                  ;; Theme
-    ;; zenburn-theme
     )
   )
 
@@ -57,8 +56,8 @@
 ;; Scans the list in my-Packages
 ;; If the package listed is not already installed, install it
 (mapc #'(lambda (package)
-	  (unless (package-installed-p package)
-	    (package-install package)))
+          (unless (package-installed-p package)
+            (package-install package)))
       my-packages)
 
 ;; ===================================
@@ -99,6 +98,10 @@
  mouse-wheel-progressive-speed nil
  )
 
+;; Turn off mouse inputs
+;; (when (require 'disable-mouse nil t)
+;;   (global-disable-mouse-mode))
+
 ;; load custom funcs
 (setq custom-file "~/.emacs.d/init.funcs")
 (load custom-file)
@@ -111,26 +114,6 @@
 (setq custom-file "~/.emacs.d/init.display")
 (load custom-file)
 
-;; turn off python indent guess warnings
-(setq python-indent-guess-indent-offset t)
-(setq python-indent-guess-indent-offset-verbose nil)
-
-;; use wordpress defaults
-(add-hook 'php-mode-hook 'php-enable-wordpress-coding-style)
-
-;; so we can edit python templates
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(setq web-mode-engines-alist '(("django"    . "\\.html\\'")))
-
-;; Enable elpy
-(elpy-enable)
-
-;; Enable Flycheck
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; ===================================================================
 ;; Key Bindings
@@ -148,6 +131,10 @@
 (global-set-key [f1] 'toggle-read-only); toggles the buffer read only
 (global-unset-key [f2])
 (global-set-key [f2] 'isearch-toggle-case-fold); toggles case sensitive search
+
+(global-unset-key [ctrl x ctrl c])
+(global-set-key [ctrl x ctrl c] 'clean-exit)
+
 (global-unset-key [ctrl y])
 (global-set-key [(ctrl y)] 'yoda-reverse); reverse phrase
 (global-unset-key [ctrl i])
@@ -180,8 +167,39 @@
 ;; Development Setup
 ;; ====================================
 
+;; (add-hook 'python-mode-hook
+;;       (lambda ()
+;;         (setq-default indent-tabs-mode t)
+;;         (setq-default tab-width 4)
+;;         (setq-default python-indent 4)))
+;; (setq tab-always-indent 'complete)
+;; turn off python indent guess warnings
+;; (setq python-indent-offset 4)
+;; (electric-indent-mode 1)
+
+(setq python-indent-guess-indent-offset t)
+(setq python-indent-guess-indent-offset-verbose nil)
+
+;; use wordpress defaults
+(add-hook 'php-mode-hook 'php-enable-wordpress-coding-style)
+
+(with-eval-after-load 'python
+    (define-key python-mode-map (kbd "<tab>") 'python-indent-shift-right)
+    (define-key python-mode-map (kbd "<backtab>") 'python-indent-shift-left))
+
+;; so we can edit python templates
+;; (require 'web-mode)
+;; (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; (setq web-mode-engines-alist '(("django"    . "\\.html\\'")))
+
 ;; Enable elpy
 (elpy-enable)
+
+;; Enable Flycheck
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; (setq elpy-rpc-python-command "python3")
 
@@ -192,16 +210,9 @@
 ;;    (if (file-exists-p venv-dir) (pyvenv-activate venv-dir))))
 
 
-;; Enable Flycheck
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-;; Turn off mouse inputs
-;; (when (require 'disable-mouse nil t)
-;;   (global-disable-mouse-mode))
 (if (memq window-system '(win32 w32))
-    (cd "\\\\wsl.localhost\\Ubuntu\\home\\drew\\desktop\\wp2\\public_html\\wp-content\\plugins\\woocommerce-delivery-routing\\includes"))
+    (cd "\\\\wsl.localhost\\Ubuntu\\home\\drew\\desktop\\wp2\\public_html\\wp-content\\plugins\\"))
 (if (memq window-system '(x))
-    (cd "/home/drew/desktop/server_clone/public_html/wp-content/plugins/digitalbodhi-delivery/includes"))
+    ;; (cd "~/desktop/server_clone/public_html/wp-content/plugins/digitalbodhi-delivery/includes"))
+    (cd "~/desktop/sigmsg/"))
 
